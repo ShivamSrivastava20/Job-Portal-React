@@ -2,22 +2,23 @@ import { Company } from "../models/company.model.js";
 
 export const registerCompany = async (req, res) => {
   try {
-    const { company_name } = req.body;
-    if (!company_name) {
+    console.log("REQ ++++++ " ,req.body)
+    const { companyName } = req.body;
+    if (!companyName) {
       return res.status(400).json({
         message: "You can't register same company",
-        status: false,
+        success: false,
       });
     }
     let company = await Company.create({
-      name: company_name,
-      user_id: req.id,
+      name: companyName,
+      userId: req.id,
     });
 
     return res.status(201).json({
       message: "Company registered successfully",
       company,
-      status: true,
+      success: true,
     });
   } catch (error) {
     console.log("Error registerCompany ", error);
@@ -31,13 +32,13 @@ export const getCompany = async (req, res) => {
     if (!companies) {
       return res.status(404).json({
         message: "Companies not found",
-        status: false,
+        success: false,
       });
     }
     return res.status(200).json({
       message: "Companies found successfully",
       companies,
-      status: true,
+      success: true,
     });
   } catch (error) {
     console.log("Error getCompany", error);
@@ -51,13 +52,13 @@ export const getCompanyById = async (req, res) => {
     if (!company) {
       return res.status(404).json({
         message: "Company not found",
-        status: false,
+        success: false,
       });
     }
     return res.status(200).json({
       message: "Company found successfully",
       company,
-      status: true,
+      success: true,
     });
   } catch (error) {
     console.log("Error getCompanyById", error);
@@ -75,12 +76,12 @@ export const updateCompany = async (req, res) => {
     if (!company) {
       return res.status(404).json({
         message: "Company not found",
-        status: false,
+        success: false,
       });
     }
     return res.status(200).json({
       message: "Company updated successfully",
-      status: true,
+      success: true,
     });
   } catch (error) {
     console.log("Error updateCompany", error);
